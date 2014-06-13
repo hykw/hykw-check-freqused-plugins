@@ -11,6 +11,17 @@ Author: hitoshi-hayakawa
 Version: 0.1
 */
 
+function _hykw_cfp_getPluginsNames()
+{
+  return array(
+               # 'プラグイン名', 'ファイル名'
+               array('SMS Security', 'sms-security/main.php'),
+               array('Custom Post Type UI', 'custom-post-type-ui/custom-post-type-ui.php'),
+               array('WP Multibyte Patch', 'wp-multibyte-patch/wp-multibyte-patch.php'),
+               );
+
+}
+
 function _hykw_cfp_check_manuallyEdit_files()
 {
   $ret = array();
@@ -77,12 +88,7 @@ function _hykw_cfp_listsArray($array)
 function hykw_cfp_list()
 {
   
-  $cfp_plugins = array(
-                       # 'プラグイン名', 'ファイル名'
-                       array('SMS Security', 'sms-security/main.php'),
-                       array('Custom Post Type UI', 'custom-post-type-ui/custom-post-type-ui.php'),
-                       array('WP Multibyte Patch', 'wp-multibyte-patch/wp-multibyte-patch.php'),
-                       );
+  $cfp_plugins = _hykw_cfp_getPluginsNames();
 
   $plugins = get_plugins();
   $names = array();
