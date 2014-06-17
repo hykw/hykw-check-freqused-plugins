@@ -34,13 +34,20 @@ function _hykw_cfp_check_manuallyEdit_files()
                              179 => 'if (!isset($disabled)) $disabled = false;',
                              ),
                        ),
-
                  array(
                        'Easy Pie Maintenance Mode',
                        'easy-pie-maintenance-mode/mini-themes/temporarily-closed/css/style.css',
                        array(
                              80 => '# -webkit-transform: rotate(3deg);',
                              81 => '# -moz-transform: rotate(3deg);',
+                             ),
+                       ),
+                 array(
+                       'WPLite',
+                       'wplite/wplite.php',
+                       array(
+                             38 => "#wp_enqueue_script('jquery');",
+                             41 => "add_options_page('WPlite', 'WPlite', 'administrator', basename(__FILE__), 'wplite_options_page');",
                              ),
                        ),
                  );
