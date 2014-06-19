@@ -83,6 +83,8 @@ function _hykw_cfp_check_Line($file, $patterns)
 
 function _hykw_cfp_listsArray($array)
 {
+  $array = array_unique($array);
+
   $ret = '';
   foreach ($array as $plugin) {
     $ret .= sprintf("<li>%s<br /></li>\n", $plugin);
