@@ -1,56 +1,68 @@
 <?php
-/**
- * @package HYKW check frequently used plugins
- * @version 0.1
- */
-/*
-Plugin Name: HYKW check frequently used plugins
-Plugin URI: https://github.com/hykw/hykw-check-freqused-plugins
-Description: 良く使うプラグインのインストール状況をチェックするプラグイン
-Author: hitoshi-hayakawa
-Version: 0.1
-*/
+  /**
+   * @package HYKW check frequently used plugins
+   * @version 0.1
+   */
+  /*
+    Plugin Name: HYKW check frequently used plugins
+    Plugin URI: https://github.com/hykw/hykw-check-freqused-plugins
+    Description: 良く使うプラグインのインストール状況をチェックするプラグイン
+    Author: hitoshi-hayakawa
+    Version: 0.1
+  */
 
 function _hykw_cfp_getPluginsNames()
 {
+# インストール確認プラグイン
   return array(
-               # 'プラグイン名', 'ファイル名'
-               array('SMS Security', 'sms-security/main.php'),
-               array('Custom Post Type UI', 'custom-post-type-ui/custom-post-type-ui.php'),
-               array('WP Multibyte Patch', 'wp-multibyte-patch/wp-multibyte-patch.php'),
-               );
+      # 'プラグイン名', 'ファイル名'
+      array('(hykw)Prime Strategy Page Navi', 'hykw-prime-strategy-page-navi/prime-strategy-page-navi.php'),
+      array('(hykw)WordPress Related Posts', 'hykw-wordpress-23-related-posts-plugin/wp_related_posts.php'),
+      array('Debug Bar', 'debug-bar/debug-bar.php'),
+      array('Debug Bar Extender', 'debug-bar-extender/debug-bar-extender.php'),
+      array('Easy Pie Maintenance Mode', 'easy-pie-maintenance-mode/easy-pie-maintenance-mode.php'),
+      array('Google XML Sitemaps', 'google-sitemap-generator/sitemap.php'),
+      array('HYKW Wordpress Data plugin', 'hykw-wpdata/main.php'),
+      array('Log Deprecated Notices', 'log-deprecated-notices/log-deprecated-notices.php'),
+      array('SMS Security', 'sms-security/main.php'),
+      array('Theme Check', 'theme-check/theme-check.php'),
+      array('WP-PostViews', 'wp-postviews/wp-postviews.php'),
+      array('WPLite', 'wplite/wplite.php'),
+      array('WP Multibyte Patch', 'wp-multibyte-patch/wp-multibyte-patch.php'),
+  );
 
 }
 
 function _hykw_cfp_check_manuallyEdit_files()
 {
-  $ret = array();
-
+# 手動編集プラグイン
   $plugins = array(
-                 array(
-                       'WPLite',
-                       'wplite/wplite.php',
-                       array(
-                             179 => 'if (!isset($disabled)) $disabled = false;',
-                             ),
-                       ),
-                 array(
-                       'Easy Pie Maintenance Mode',
-                       'easy-pie-maintenance-mode/mini-themes/temporarily-closed/css/style.css',
-                       array(
-                             80 => '# -webkit-transform: rotate(3deg);',
-                             81 => '# -moz-transform: rotate(3deg);',
-                             ),
-                       ),
-                 array(
-                       'WPLite',
-                       'wplite/wplite.php',
-                       array(
-                             38 => "#wp_enqueue_script('jquery');",
-                             41 => "add_options_page('WPlite', 'WPlite', 'administrator', basename(__FILE__), 'wplite_options_page');",
-                             ),
-                       ),
-                 );
+      array(
+	  'WPLite',
+	  'wplite/wplite.php',
+	  array(
+	      179 => 'if (!isset($disabled)) $disabled = false;',
+	  ),
+      ),
+      array(
+	  'Easy Pie Maintenance Mode',
+	  'easy-pie-maintenance-mode/mini-themes/temporarily-closed/css/style.css',
+	  array(
+	      80 => '# -webkit-transform: rotate(3deg);',
+	      81 => '# -moz-transform: rotate(3deg);',
+	  ),
+      ),
+      array(
+	  'WPLite',
+	  'wplite/wplite.php',
+	  array(
+	      38 => "#wp_enqueue_script('jquery');",
+	      41 => "add_options_page('WPlite', 'WPlite', 'administrator', basename(__FILE__), 'wplite_options_page');",
+	  ),
+      ),
+  );
+
+  $ret = array();
 
   foreach ($plugins as $plugin) {
     $pluginName = $plugin[0];
@@ -112,17 +124,17 @@ function hykw_cfp_list()
     $pluginname = $plugins[0];
     $pluginfile = $plugins[1];
 
-    # インストールチェック
+# インストールチェック
     if (in_array($pluginname, $names) == false) {
       array_push($missingPlugins, $pluginname);
     }
 
-    # active チェック
+# active チェック
     if (!is_plugin_active($pluginfile))
       array_push($inactivePlugins, $pluginname);
   }
 
-  # 手動修正した項目の確認
+# 手動修正した項目の確認
   $manualPlugins = _hykw_cfp_check_manuallyEdit_files();
 
   echo "\n<div class='wrap'>\n";
